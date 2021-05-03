@@ -9,7 +9,7 @@ function TodoList(props) {
         {props.todos.map((todo) => {
           return (
             <li className="list-group-item">
-              <TodoItem {...todo} key={todo.id} />
+              <TodoItem lineText={props.lineText} deleteTodo={props.deleteTodo} {...todo} key={todo.id} />
             </li>
           );
         })}

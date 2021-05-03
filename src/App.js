@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TodoList from "./components/TodoList/TodoList";
 import "./App.css";
 import Form from "./components/Form/Form";
+import Header from "./components/Header/Header";
 
 class App extends Component {
   constructor(props) {
@@ -47,17 +48,32 @@ class App extends Component {
     });
   };
 
+  deleteTodo = (e) => {
+    const result = this.state.todos.filter(todo => todo.id !== e.target.value);
+    this.setState({ todos: result });
+  }
+
+  lineText = (e) => {
+    if (e.target.firstChild.className !== "text-line") {
+      e.target.firstChild.className = "text-line";
+    }
+    else {
+      e.target.firstChild.className = "";
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <Form
+          <Header></Header>
+          <Form
           userInput={this.state.userInput}
           onInputChange={this.onInputChange}
           addItem={this.addItem}
         />
         {this.state.todos.length > 0 && (
           <div className="list">
-            <TodoList todos={this.state.todos} />
+            <TodoList lineText={this.lineText} deleteTodo={this.deleteTodo} todos={this.state.todos} />
           </div>
         )}
       </div>
